@@ -15,3 +15,8 @@ POP rans
 POP rnumber
 
 ;Calling function: Conflict Registers
+PUSH temp1  ;rn: after shifting, might lost original
+PUSH temp2  ; anding with 1: conflict
+IN YH, SPH
+IN YL, SPL
+LDD temp1, 
