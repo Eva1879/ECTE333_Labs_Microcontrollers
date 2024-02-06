@@ -13,3 +13,5 @@ PUSH rans
 RCALL func
 POP rans
 POP rnumber
+
+;Calling function: Conflict Registers
