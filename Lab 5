@@ -1,0 +1,15 @@
+//Question
+;You are tasked to design and code in ATMEGA8515 assembly, a small application which counts the number 
+;of trailing zeros in a one byte data. Your implementation should translate the attached TrailingZero.c
+;program without any alteration to the C-Code/ algorithm provided. Furthermore, Stack Memory should 
+;be used to pass ALL the parameters between the main() and the two user defined functions of the
+;program. Note that the printf statements in the program are not to be translated into assembly code.
+
+.include"m8515.inc"
+
+;Stack frame by the caller: Arguments of function
+PUSH rnumber
+PUSH rans
+RCALL func
+POP rans
+POP rnumber
