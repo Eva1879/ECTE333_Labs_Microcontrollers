@@ -57,3 +57,28 @@ Main_Loop:
     cpi r16, (1<<ISC21)   ; Check if INT2 triggered the interrupt
     brne exit_decode
 
+int0_triggered:
+    ; Set column 1 to output, others to input
+    ldi r16, (1<<COL1)
+    out COLS_DDR, r16
+    clr r16
+    out COLS_PORT, r16
+    rjmp read_row
+
+int1_triggered:
+    ; Set column 2 to output, others to input
+    ldi r16, (1<<COL2)
+    out COLS_DDR, r16
+    clr r16
+    out COLS_PORT, r16
+    rjmp read_row
+
+int2_triggered:
+    ; Set column 3 to output, others to input
+    ldi r16, (1<<COL3)
+    out COLS_DDR, r16
+    clr r16
+    out COLS_PORT, r16
+    rjmp read_row
+
+
