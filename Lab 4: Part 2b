@@ -33,3 +33,27 @@ RESET:
     rcall decode_key
     reti
 
+init:
+    ldi r16, (1<<INT0) | (1<<INT1) | (1<<INT2)  ; Enable INT0, INT1, and INT2
+    out GICR, r16                                ; Enable external interrupts
+    ldi r16, (1<<ISC01) | (1<<ISC11) | (1<<ISC21) ; Falling edge triggers interrupt
+    out MCUCR, r16                               ; Set interrupt triggers
+    sei                                          ; Enable global interrupts
+
+    ldi r16, 0xFF   ; Set all rows to input (with pull-ups enabled)
+    out ROWS_DDR, r16
+    
+    ldi r16, (1<<COL1) | (1<<COL2) | (1<<COL3)  ; Set columns as output
+    out COLS_DDR, r16
+
+Main_Loop:
+
+    ; Determine which column triggered the interrupt
+    in r16, MCUCR
+    cpi r16, (1<<ISC01)   ; Check if INT0 triggered the interrupt
+    breq int0_triggered
+    cpi r16, (1<<ISC11)   ; Check if INT1 triggered the interrupt
+    breq int1_triggered
+    cpi r16, (1<<ISC21)   ; Check if INT2 triggered the interrupt
+    brne exit_decode
+
