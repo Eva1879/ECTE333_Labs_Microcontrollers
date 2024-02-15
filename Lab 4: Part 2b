@@ -1,0 +1,5 @@
+;Header File
+.include "m8515def.inc"
+
+;Adress locations of column pins
+.equ COL1 = 0X01;   To define column 1 pin
