@@ -81,4 +81,47 @@ int2_triggered:
     out COLS_PORT, r16
     rjmp read_row
 
+read_row:
+    ; Add NOP instructions for stability
+    nop
+    nop
+    
+    ; Read row pins
+    in r17, ROWS_PIN
+    ; Determine which row pin is low
+    ldi r18, 0xFF
+    eor r17, r18   ; Invert bits
+    lsl r17        ; Shift to left to isolate lowest order bit
+    brne row1_not_low
+    ldi r16, '1'
+    rjmp display_key
+    
+row1_not_low:
+    ldi r18, 0xFE
+    eor r17, r18   ; Invert bits
+    lsl r17        ; Shift to left to isolate lowest order bit
+    brne row2_not_low
+    ldi r16, '4'
+    rjmp display_key
+    
+row2_not_low:
+    ldi r18, 0xFC
+    eor r17, r18   ; Invert bits
+    lsl r17        ; Shift to left to isolate lowest order bit
+    brne row3_not_low
+    ldi r16, '7'
+    rjmp display_key
+    
+row3_not_low:
+    ldi r16, 'E'   ; No key pressed
 
+display_key:
+    ; Display key on 7-segment display
+    out SEG_PORT, r16
+    
+    ; Reset rows as output and columns as input
+    ldi r16, (1<<COL1) | (1<<COL2) | (1<<COL3)
+    out COLS_DDR, r16
+    ldi r16, 0xFF
+    out COLS_PORT, r16
+    ldi r
