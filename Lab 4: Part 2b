@@ -3,3 +3,16 @@
 
 ;Adress locations of column pins
 .equ COL1 = 0X01;   To define column 1 pin
+.equ COL2 = 0x02   ; Define column 2 pin
+.equ COL3 = 0x04   ; Define column 3 pin
+
+.equ ROWS_DDR = DDRD    ; Rows DDR Register
+.equ ROWS_PORT = PORTD  ; Rows Port Register
+.equ ROWS_PIN = PIND    ; Rows Pin Register
+
+.equ COLS_DDR = DDRB    ; Columns DDR Register
+.equ COLS_PORT = PORTB  ; Columns Port Register
+.equ COLS_PIN = PINB    ; Columns Pin Register
+
+.equ SEG_PORT = PORTC   ; 7-Segment Display Port Register
+
