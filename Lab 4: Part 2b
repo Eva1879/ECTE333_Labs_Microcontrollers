@@ -16,3 +16,20 @@
 
 .equ SEG_PORT = PORTC   ; 7-Segment Display Port Register
 
+RESET:
+
+.org 0x0000
+    rjmp init
+
+.org INT0addr             ; ISR for INT0
+    rcall decode_key
+    reti
+    
+.org INT1addr             ; ISR for INT1
+    rcall decode_key
+    reti
+
+.org INT2addr             ; ISR for INT2
+    rcall decode_key
+    reti
+
