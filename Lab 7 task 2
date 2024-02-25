@@ -91,4 +91,24 @@ void display_7led2(unsigned char digit) {
 		PORTB = 0b00000000; // Turn off all segments if invalid input
 	}
 }
+//Here, we are receiving data from serial port, to output to the microcontroller
+unsigned char USART_receive(void){
+	// Wait until RXC flag = 1
+	while ((UCSRA & (1<<RXC)) == 0x00){;}
+	// Read the received char from UDR
+	return (UDR);
+}
+int main(){
+	//Setting the PORTA & PORTB in the microcontroller as outputs
+	DDRA=0XFF;
+	DDRB=0XFF;
+	//Calling the USART_function
+	USART_init();
+	// Main loop
+	while(1) {
+		// Continuously receive a character from USART and display it on both 7-segment displays
+		display_7led1(USART_receive());
+		display_7led2(USART_receive());
+	}
+}
 
