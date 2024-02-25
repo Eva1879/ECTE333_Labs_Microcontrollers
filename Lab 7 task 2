@@ -17,3 +17,78 @@ void USART_init(void){
 	UCSRB = (1 << RXEN);
 }
 
+// Port A: Function to display digit on the first part of the 7-segment display, we’re using port A
+void display_7led1(unsigned char digit) {
+	switch (digit) {
+		case '0':
+		PORTA = 0b00111111;     //binary format, as per figure attached after this code
+		break;
+		case '1':
+		PORTA = 0b00000110;
+		break;
+		case '2':
+		PORTA = 0b01011011;
+		break;
+		case '3':
+		PORTA = 0b01001111;
+		break;
+		case '4':
+		PORTA = 0b01100110;
+		break;
+		case '5':
+		PORTA = 0b01101101;
+		break;
+		case '6':
+		PORTA = 0b01111101;
+		break;
+		case '7':
+		PORTA = 0b00000111;
+		break;
+		case '8':
+		PORTA = 0b01111111;
+		break;
+		case '9':
+		PORTA = 0b01101111;
+		break;
+		default:
+		PORTA = 0b00000000; // Turn off all segments if invalid input
+	}
+}
+//Port B: Function to display digit on the second part of the 7-seg display
+void display_7led2(unsigned char digit) {
+	switch (digit) {
+		case '0':
+		PORTB = 0b00111111;     //binary format, as per figure attached after this code
+		break;
+		case '1':
+		PORTB = 0b00000110;
+		break;
+		case '2':
+		PORTB = 0b01011011;
+		break;
+		case '3':
+		PORTB = 0b01001111;
+		break;
+		case '4':
+		PORTB = 0b01100110;
+		break;
+		case '5':
+		PORTB = 0b01101101;
+		break;
+		case '6':
+		PORTB = 0b01111101;
+		break;
+		case '7':
+		PORTB = 0b00000111;
+		break;
+		case '8':
+		PORTB = 0b01111111;
+		break;
+		case '9':
+		PORTB = 0b01101111;
+		break;
+		default:
+		PORTB = 0b00000000; // Turn off all segments if invalid input
+	}
+}
+
