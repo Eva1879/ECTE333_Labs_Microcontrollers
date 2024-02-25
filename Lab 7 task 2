@@ -1,18 +1,19 @@
 #include <avr/io.h>
 
-//Configure the serial port for a baud rate of 9600 bps, 7 data bit, 1 stop bit and odd parity.
+//Configure the serial port for a baud rate of 2400 bps, 8 data bits, 2 stop bit and even parity.
 
 void USART_init(void){
 	
-	UCSRC = (1 << URSEL) | (0 << USBS) | (1<<UPM1)|(1<<UPM0);
+	UCSRC = (1 << URSEL) | (1 << USBS) | (1<<UPM1)|(0<<UPM0);
 
 	// Normal speed, disable multi-proc
 	UCSRA = 0x00;
 
 	// Baud rate 1200bps, assuming 1MHz clock
-	UBRRL = 5;
+	UBRRL = 25;
 	UBRRH = 0x00;
 
 	// Enable Tx, disable interrupts; since transmitting
-	UCSRB = (1 << TXEN);
+	UCSRB = (1 << RXEN);
 }
+
