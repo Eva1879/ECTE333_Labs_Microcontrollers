@@ -37,13 +37,13 @@ void display_7led1(unsigned char digit) {
 		PORTA = SIX;
 		break;
 		case '7':
-		PORTA = 0b00000111;
+		PORTA = SEVEN;
 		break;
 		case '8':
-		PORTA = 0b01111111;
+		PORTA = EIGHT;
 		break;
 		case '9':
-		PORTA = 0b01101111;
+		PORTA = NINE;
 		break;
 		default:
 		PORTA = 0b00000000; // Turn off all segments if invalid input
@@ -51,21 +51,21 @@ void display_7led1(unsigned char digit) {
 }
 
 ISR(INT0_vect){
-display_7led1(ONE);
+display_7led1(0);
 _delay_ms(4000); // 4 seconds delay
-display_7led1(NINE);
+display_7led1(9);
 }
 
 ISR(INT1_vect){
-display_7led1(THREE);
+display_7led1(3);
 _delay_ms(3000); // 3 seconds delay
-display_7led1(SEVEN);
+display_7led1(7);
 }
 
 ISR(INT2_vect){
-display_7led1(ZERO);
+display_7led1(0);
 _delay_ms(5000); // 5 seconds delay
-display_7led1(FIVE);
+display_7led1(5);
 }
 
 
@@ -76,3 +76,15 @@ GICR = (1<<INT0)|(1<<INT1)|(1<<INT2);
 MCUCR=(1<<ISC11)|(0<<ISC00);
 MCUCSR=(0<<ISC2);
 sei();   //Enabling global interrupts
+}
+
+int main(){
+//7 segment as output
+PORTA=OxFF;
+
+interrupt_config();
+
+while(1);
+
+return 0;
+}
