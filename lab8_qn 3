@@ -3,3 +3,10 @@
 #include <util/delay.h>
 
 
+void interrupt_config(){
+//triggered at the falling edge, using INT_0, INT_1, INT_2
+GICR = (1<<INT0)|(1<<INT1)|(1<<INT2);
+
+MCUCR=(1<<ISC11)|(0<<ISC00);
+MCUCSR=(0<<ISC2);
+sei();   //Enabling global interrupts
