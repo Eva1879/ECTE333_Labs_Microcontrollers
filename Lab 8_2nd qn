@@ -5,7 +5,7 @@ volatile int overflow_count; // include volatile
 
 ISR(TIMER1_OVF_vect){ // handler for Timer1 overflow interrupt
 	overflow_count++; // increment overflow count
-	if (overflow_count >= ){ // when approx 11.5s has passed
+	if (overflow_count >= 175){ // when approx 11.5s has passed
 		overflow_count = 0; // start new count
 		PORTB = ~(1010101); // toggle port B
 	}
@@ -14,7 +14,7 @@ ISR(TIMER1_OVF_vect){ // handler for Timer1 overflow interrupt
 
 void init_timer1(void){
 	TCCR1A = 0x0; // normal mode
-	TCCR1B=(0<<CS12)|(1<<CS11)|(0<<CS10);  //Prescaler: 20
+	TCCR1B=(1<<CS10);  //Prescaler: 1
 	TIMSK = (1 << TOIE1); // enable Timer 1 overflow interrupt
 	sei(); // enable interrupt subsystem globally if not included in the main()
 
