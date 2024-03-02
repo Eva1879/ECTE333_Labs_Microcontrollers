@@ -2,6 +2,72 @@
 #include <avr/interrupt.h>
 #include <util/delay.h>
 
+#define ZERO = 0b00111111
+#define ONE = 0b00000110
+#define TWO = 0b01011011
+#define THREE = 0b01001111
+#define FOUR = 0b01100110
+#define FIVE = 0b01101101
+#define SIX = 0b01111101
+#define SEVEN = 0b00000111
+#define EIGHT = 0b01111111
+#define NINE = 0b01101111
+
+void display_7led1(unsigned char digit) {
+	switch (digit) {
+		case '0':
+		PORTA = ZERO;     //binary format
+		break;
+		case '1':
+		PORTA = ONE;
+		break;
+		case '2':
+		PORTA = TWO;
+		break;
+		case '3':
+		PORTA = THREE;
+		break;
+		case '4':
+		PORTA = FOUR;
+		break;
+		case '5':
+		PORTA = FIVE;
+		break;
+		case '6':
+		PORTA = SIX;
+		break;
+		case '7':
+		PORTA = 0b00000111;
+		break;
+		case '8':
+		PORTA = 0b01111111;
+		break;
+		case '9':
+		PORTA = 0b01101111;
+		break;
+		default:
+		PORTA = 0b00000000; // Turn off all segments if invalid input
+	}
+}
+
+ISR(INT0_vect){
+display_7led1(ONE);
+_delay_ms(4000); // 4 seconds delay
+display_7led1(NINE);
+}
+
+ISR(INT1_vect){
+display_7led1(THREE);
+_delay_ms(3000); // 3 seconds delay
+display_7led1(SEVEN);
+}
+
+ISR(INT2_vect){
+display_7led1(ZERO);
+_delay_ms(5000); // 5 seconds delay
+display_7led1(FIVE);
+}
+
 
 void interrupt_config(){
 //triggered at the falling edge, using INT_0, INT_1, INT_2
